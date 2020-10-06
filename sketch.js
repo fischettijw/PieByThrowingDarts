@@ -14,8 +14,14 @@ function setup() {
     fill('white');
     circle(diam / 2, diam / 2, diam);
     strokeWeight(1);
-    pieDiv = createDiv(pie);
-    pieDiv.style('font-size', '36pt');
+
+
+    // createP("hello").style('font-size', '72pt');
+    pieDiv = createDiv().style('font-size', '18pt');
+    // pieDiv = createDiv();
+    // pieDiv = createDiv(pie);
+    // pieDiv.style('font-size', '18pt');
+
 }
 
 function draw() {
@@ -24,6 +30,7 @@ function draw() {
     fill(255, 0, 0, 0);
     circle(diam / 2, diam / 2, diam);
     stroke('red');
+
     pieDiv.html(pie);
 }
 

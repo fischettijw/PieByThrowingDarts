@@ -1,4 +1,4 @@
-const diam = 400;
+const diam = 2000;
 let darts = 0;
 let inCircle = 0;
 let ratio = 0;
@@ -30,8 +30,7 @@ function draw() {
     fill(255, 0, 0, 0);
     circle(diam / 2, diam / 2, diam);
     stroke('red');
-
-    pieDiv.html(pie);
+    pieDiv.html(`${diam} <br> ${pie} <br> ${darts} <br> ${(PI - pie) * 100 / PI} %`); // JS Template literals
 }
 
 function generateDarts(n) {

@@ -1,4 +1,5 @@
-const diam = 2000;
+const diam = 10000;
+let dartWeight = 1;
 let darts = 0;
 let inCircle = 0;
 let ratio = 0;
@@ -13,8 +14,6 @@ function setup() {
     stroke('red');
     fill('white');
     circle(diam / 2, diam / 2, diam);
-    strokeWeight(1);
-
 
     // createP("hello").style('font-size', '72pt');
     pieDiv = createDiv().style('font-size', '18pt');
@@ -30,13 +29,17 @@ function draw() {
     fill(255, 0, 0, 0);
     circle(diam / 2, diam / 2, diam);
     stroke('red');
-    pieDiv.html(`${diam} <br> ${pie} <br> ${darts} <br> ${(PI - pie) * 100 / PI} %`); // JS Template literals
+    pieDiv.html(`${diam} <br> 
+                 ${nf(pie,1,5)} <br> 
+                 ${darts} <br>
+                 ${nf((PI - pie) * 100 / PI,1,4)} %`);
+    // JS Template literals   ` ackticks above tilde symbol
 }
 
 function generateDarts(n) {
     let r = diam / 2;
+    strokeWeight(dartWeight);
     for (let i = 0; i < n; i++) {
-        strokeWeight(1);
         let x = random(0, diam);
         let y = random(0, diam);
         let dartLenght = sqrt((x - r) * (x - r) + (y - r) * (y - r));
@@ -51,7 +54,6 @@ function generateDarts(n) {
     ratio = inCircle / (frameCount * n);
     darts += n;
     pie = 4 * ratio;
-    // print(pie, (PI - pie) * 100 / PI);
 }
 
 

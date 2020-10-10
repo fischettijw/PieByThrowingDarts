@@ -1,10 +1,11 @@
-const diam = 10000;
+const diam = 800;
 let dartWeight = 1;
 let darts = 0;
 let inCircle = 0;
 let ratio = 0;
 let pie;
 let pieDiv;
+let batchDarts = 10000;
 
 function setup() {
     // frameRate(1);
@@ -24,12 +25,13 @@ function setup() {
 }
 
 function draw() {
-    generateDarts(10000);
+    generateDarts(batchDarts);
     stroke(255, 0, 0);
     fill(255, 0, 0, 0);
     circle(diam / 2, diam / 2, diam);
     stroke('red');
     pieDiv.html(`${diam} <br> 
+                 ${batchDarts} <br>
                  ${nf(pie,1,5)} <br> 
                  ${darts} <br>
                  ${nf((PI - pie) * 100 / PI,1,4)} %`);

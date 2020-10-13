@@ -1,16 +1,16 @@
 const diam = 1000;
 let digitsOfPie;
-let dartWeight = 10;
+let dartWeight = 3;
 let darts = 0;
-const dartMinimum = 200000;
+const dartMinimum = 300000;
 let inCircle = 0;
 let ratio = 0;
 let pie = 0;
 let pieDiv;
-const lowStop = 3.1415;
-const highStop = 3.1417;
+const lowStop = 3.14155;
+const highStop = 3.14163;
 
-const batchDarts = 1000;
+const batchDarts = 10000;
 const drawGraphic = true;
 
 const pieRandomDigits = 3;
@@ -30,10 +30,12 @@ function setup() {
 
     pieDiv = createDiv().style('font-size', '24pt');
     digitsOfPie = Array.from(getPie()); // getPie() in pieDigits.js
+
+    rndIndex = floor(randomPie(0, 1000));
+    // rndIndex = floor(randomPie(0, digitsOfPie.length - pieRandomDigits));
 }
 
 function draw() {
-
     generateDarts(batchDarts);
     if (drawGraphic) {
         stroke(255, 0, 0);
@@ -74,7 +76,6 @@ function generateDarts(n) {
     ratio = inCircle / (frameCount * n);
     darts += n;
     pie = 4 * ratio;
-
 }
 
 function p5js() {

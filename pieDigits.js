@@ -10,6 +10,7 @@ function randomPie(n) {
     if (rndIndex >= (digitsOfPie.length - n)) {
         rndIndex = 0;
     }
+
     return rndPie;
 }
 

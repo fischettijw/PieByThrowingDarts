@@ -1,5 +1,4 @@
 const diam = 1000;
-let digitsOfPie;
 let dartWeight = 3;
 let darts = 0;
 const dartMinimum = 300000;
@@ -84,7 +83,7 @@ function p5js() {
 }
 
 function rndPie() {
-    return randomPie(pieRandomDigits);
+    return randomPie(0, diam);
 }
 
 

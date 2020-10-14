@@ -1,5 +1,13 @@
-let rndIndex = 0;
+let rndIndex;
 let digitsOfPie;
+
+function randomSeedPie(seed) {
+    if (seed == null) {
+        rndIndex = 0;
+    } else {
+        rndIndex = seed;
+    }
+}
 
 function randomPie(min, max) {
     const high = max - min;

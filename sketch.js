@@ -1,24 +1,24 @@
-const diam = 1000;
-let dartWeight = 3;
+const diam = 750;
+let dartWeight = 1;
 let darts = 0;
-const dartMinimum = 300000;
 let inCircle = 0;
 let ratio = 0;
 let pie = 0;
 let pieDiv;
+const dartMinimumStop = 300000;
 const lowStop = 3.14155;
 const highStop = 3.14163;
 
 const batchDarts = 10000;
 const drawGraphic = true;
 
-const pieRandomDigits = 3;
-// let randomMethod = rndPie; // diam must be 1000
-let randomMethod = p5js;
+let seed;
+let randomMethod = p5js; // null or p5js = p5js;    // =rndPie;
 
 function setup() {
-    // frameRate(1);
-    randomSeed(); // seed(1) => 400,000    seed(99) => 1,790,000    seed() => always random   
+    randomMethod = (randomMethod == null) ? p5js : randomMethod;
+    randomSeed((seed == null) ? null : seed); // p5js
+    randomSeedPie(((seed == null) ? 0 : seed)); // rndPie
     if (drawGraphic) {
         createCanvas(diam, diam);
         background(220);
@@ -28,10 +28,9 @@ function setup() {
         circle(diam / 2, diam / 2, diam);
     }
 
-    pieDiv = createDiv().style('font-size', '24pt');
-    digitsOfPie = Array.from(getPie()); // getPie() in pieDigits.js
+    pieDiv = createDiv().style('font-size', '18pt');
 
-    rndIndex = floor(randomPie(0, 1000));
+    // rndIndex = floor(randomPie(0, 1000));
     // rndIndex = floor(randomPie(0, digitsOfPie.length - pieRandomDigits));
 }
 
@@ -43,15 +42,15 @@ function draw() {
         circle(diam / 2, diam / 2, diam);
         stroke('red');
     }
-    pieDiv.html(`<br> &nbsp Diameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${diam} <br> &nbsp  
+    pieDiv.html(`&nbsp Diameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${diam} <br> &nbsp  
                  Batch Darts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${batchDarts} <br> &nbsp 
                  Simulated Pie ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${nf(pie,1,5)} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${lowStop}0 - ${highStop}0 <br> &nbsp  
-                 Number of Darts ;&nbsp;&nbsp;&nbsp${darts} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp \> ${dartMinimum} <br> &nbsp 
+                 Number of Darts ;&nbsp;&nbsp;&nbsp${darts} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp \> ${dartMinimumStop} <br> &nbsp 
                  % Deviation ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp${nf((PI - pie) * 100 / PI,1,5)} % <br> &nbsp 
                  randomMethod &nbsp;&nbsp;&nbsp;&nbsp ${randomMethod}`);
     // JS Template literals   ` ackticks above tilde symbol
 
-    if (pie > lowStop && pie < highStop && darts > dartMinimum) {
+    if (pie > lowStop && pie < highStop && darts > dartMinimumStop) {
         noLoop();
     }
 

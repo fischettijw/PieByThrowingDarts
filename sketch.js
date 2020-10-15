@@ -12,7 +12,7 @@ const highStop = 3.14163;
 const batchDarts = 10000;
 const drawGraphic = true;
 
-let seed;
+let seed = 67;
 let randomMethod = p5js; // null or p5js = p5js;    // =rndPie;
 
 function setup() {
@@ -27,28 +27,19 @@ function setup() {
         fill('white');
         circle(diam / 2, diam / 2, diam);
     }
-
     pieDiv = createDiv().style('font-size', '18pt');
-
-    // rndIndex = floor(randomPie(0, 1000));
-    // rndIndex = floor(randomPie(0, digitsOfPie.length - pieRandomDigits));
 }
 
 function draw() {
     generateDarts(batchDarts);
     if (drawGraphic) {
         stroke(255, 0, 0);
+        strokeWeight(dartWeight);
         fill(255, 0, 0, 0);
         circle(diam / 2, diam / 2, diam);
         stroke('red');
     }
-    pieDiv.html(`&nbsp Diameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${diam} <br> &nbsp  
-                 Batch Darts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${batchDarts} <br> &nbsp 
-                 Simulated Pie ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${nf(pie,1,5)} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${lowStop}0 - ${highStop}0 <br> &nbsp  
-                 Number of Darts ;&nbsp;&nbsp;&nbsp${darts} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp \> ${dartMinimumStop} <br> &nbsp 
-                 % Deviation ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp${nf((PI - pie) * 100 / PI,1,5)} % <br> &nbsp 
-                 randomMethod &nbsp;&nbsp;&nbsp;&nbsp ${randomMethod}`);
-    // JS Template literals   ` ackticks above tilde symbol
+    output();
 
     if (pie > lowStop && pie < highStop && darts > dartMinimumStop) {
         noLoop();
@@ -62,9 +53,9 @@ function generateDarts(n) {
     for (let i = 0; i < n; i++) {
         let x = randomMethod();
         let y = randomMethod();
-        let dartLenght = dist(x, y, r, r);
+        let dartRadius = dist(x, y, r, r);
         // let dartLenght = sqrt((x - r) * (x - r) + (y - r) * (y - r));
-        if (dartLenght < r) {
+        if (dartRadius < r) {
             if (drawGraphic) { stroke('red'); }
             inCircle++;
         } else {
@@ -75,6 +66,16 @@ function generateDarts(n) {
     ratio = inCircle / (frameCount * n);
     darts += n;
     pie = 4 * ratio;
+}
+
+function output() {
+    pieDiv.html(`&nbsp Diameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${diam} <br> &nbsp  
+    Batch Darts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${batchDarts} <br> &nbsp 
+    Simulated Pie ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${nf(pie,1,5)} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${lowStop}0 - ${highStop}0 <br> &nbsp  
+    Number of Darts ;&nbsp;&nbsp;&nbsp${darts} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp \> ${dartMinimumStop} <br> &nbsp 
+    % Deviation ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp${nf((PI - pie) * 100 / PI,1,5)} % <br> &nbsp 
+    randomMethod &nbsp;&nbsp;&nbsp;&nbsp ${randomMethod} &nbsp;&nbsp ${seed}`);
+    // JS Template literals   ` ticks above tilde symbol
 }
 
 function p5js() {

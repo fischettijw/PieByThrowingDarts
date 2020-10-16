@@ -12,8 +12,8 @@ const highStop = 3.14163;
 const batchDarts = 10000;
 const drawGraphic = true;
 
-let seed = 67;
-let randomMethod = p5js; // null or p5js = p5js;    // =rndPie;
+let seed = null; // p5js:67 989993 ==> 3.14157    rndPie:67 309997 ==> 3.14156
+let randomMethod = rndPie; // null or p5js = p5js;    // =rndPie;
 
 function setup() {
     randomMethod = (randomMethod == null) ? p5js : randomMethod;
@@ -41,10 +41,6 @@ function draw() {
     }
     output();
 
-    if (pie > lowStop && pie < highStop && darts > dartMinimumStop) {
-        noLoop();
-    }
-
 }
 
 function generateDarts(n) {
@@ -62,10 +58,14 @@ function generateDarts(n) {
             if (drawGraphic) { stroke('black'); }
         }
         if (drawGraphic) { point(x, y) };
+        ratio = inCircle / (frameCount * n);
+        darts++;
+        pie = 4 * ratio;
+        if (pie > lowStop && pie < highStop && darts > dartMinimumStop) {
+            noLoop();
+            break;
+        }
     }
-    ratio = inCircle / (frameCount * n);
-    darts += n;
-    pie = 4 * ratio;
 }
 
 function output() {
@@ -74,7 +74,7 @@ function output() {
     Simulated Pie ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${nf(pie,1,5)} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${lowStop}0 - ${highStop}0 <br> &nbsp  
     Number of Darts ;&nbsp;&nbsp;&nbsp${darts} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp \> ${dartMinimumStop} <br> &nbsp 
     % Deviation ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp${nf((PI - pie) * 100 / PI,1,5)} % <br> &nbsp 
-    randomMethod &nbsp;&nbsp;&nbsp;&nbsp ${randomMethod} &nbsp;&nbsp ${seed}`);
+    randomMethod &nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${randomMethod} &nbsp;&nbsp ${seed}`);
     // JS Template literals   ` ticks above tilde symbol
 }
 

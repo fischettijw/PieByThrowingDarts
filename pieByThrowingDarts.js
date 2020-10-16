@@ -12,7 +12,7 @@ const highStop = 3.14163;
 const batchDarts = 10000;
 const drawGraphic = true;
 
-let seed = 67; // 750   p5js:67 989993 ==> 3.14157    rndPie:67 309997 ==> 3.14156
+let seed = null; // 750   p5js:67 989993 ==> 3.14157    rndPie:67 309997 ==> 3.14156
 let randomMethod = p5js; // null or p5js = p5js;    // =rndPie;
 
 function setup() {
